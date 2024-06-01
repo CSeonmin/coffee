@@ -1,0 +1,8 @@
+# OrderPose.srv
+int32 order_number
+string drink_type  # "americano" or "latte"
+string temperature  # "ice" or "hot"
+bool syrup  # True if syrup is added, False otherwise
+---
+bool success
+float64 execution_time
