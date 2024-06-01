@@ -1,0 +1,652 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="firefighter">
+
+  <xacro:property name="width" value=".2" />
+
+
+  <link name="base">
+    <visual>
+      <geometry>
+        <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/base.dae"/>
+      </geometry>
+      <origin xyz = "0 0 0 " rpy = " 0 0 1.5708"/>
+    </visual>
+    <collision>
+      <origin xyz = "0 0 0.05 " rpy = " 0 0 1.5708"/>
+      <geometry>
+        <cylinder length="0.096" radius="0.07"/>
+        <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/base.dae"/> -->
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="link1">
+    <visual>
+      <geometry>
+        <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link1.dae"/>
+      </geometry>
+     <origin xyz = "0.0 0.0 -0.078 " rpy = " 0 0 1.5708"/>
+    </visual>
+    <collision>
+      <origin xyz = "0.0 0.0 -0.018 " rpy = " 0 0 1.5708"/>
+      <geometry>
+        <cylinder length="0.114" radius="0.0382"/>
+        <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link1.dae"/> -->
+      </geometry>
+    </collision>
+  </link>
+
+
+  <link name="link2">
+    <visual>
+      <geometry>
+        <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link2.dae"/>
+      </geometry>
+      <origin xyz = "0.0 0.0 -0.04 " rpy = " 0 1.5708 0"/>
+    </visual>
+    <collision>
+      <origin xyz = "0.067 0.0 -0.005 " rpy = " 0 1.5708 0"/>
+      <geometry>
+        <cylinder length="0.203" radius="0.0382"/>
+        <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link2.dae"/> -->
+      </geometry>
+    </collision>
+  </link>
+
+
+  <link name="link3">
+    <visual>
+      <geometry>
+        <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link3.dae"/>
+      </geometry>
+       <origin xyz = "0.0 0.0 0.039 " rpy = " 1.5708 1.5708 1.5708"/>
+    </visual>
+    <collision>
+      <origin xyz = "0.058 0.0 -0.004" rpy = " 1.5708 1.5708 1.5708"/>
+      <geometry>
+        <cylinder length="0.18" radius="0.032"/>
+        <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link3.dae"/> -->
+      </geometry>
+    </collision>
+  </link>
+
+
+
+  <link name="link4">
+    <visual>
+      <geometry>
+        <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link4.dae"/>
+      </geometry>
+       <origin xyz = "0.0 -0.0024 -0.05" rpy = " 1.5708 1.5708 0"/>
+    </visual>
+    <collision>
+      <origin xyz = "0.0 -0.007 0.0" rpy = " 1.5708 1.5708 0"/>
+      <geometry>
+        <cylinder length="0.073" radius="0.029"/>
+        <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link4.dae"/> -->
+      </geometry>
+    </collision>
+  </link>
+
+
+  <link name="link5">
+    <visual>
+      <geometry>
+        <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link5.dae"/>
+      </geometry>
+      <origin xyz = "0.0 0.0 -0.05 " rpy = " 0  0 -1.5708"/>
+    </visual>
+    <collision>
+      <origin xyz = "0.0 -0.003 -0.01 " rpy = " 0  0 -1.5708"/>
+      <geometry>
+        <cylinder length="0.078" radius="0.046"/>
+        <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link5.dae"/> -->
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="link6">
+    <visual>
+      <geometry>
+        <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link6.dae"/>
+      </geometry>
+      <material name = "grey">
+        <color rgba = "0.5 0.5 0.5 1"/>
+      </material>
+      <origin xyz = "0.0 0.0 -0.0115 " rpy = " 1.5708 1.5708 0"/>
+    </visual>
+    <collision>
+      <origin xyz = "0.0 0.0 -0.0115 " rpy = " 1.5708 1.5708 0"/>
+      <geometry>
+        <cylinder length="0.0225" radius="0.026"/>
+        <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link6.dae"/> -->
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="camlink">
+    <visual>
+      <geometry>
+        <!-- <box size="0.132 0.053 0.0225" /> -->
+        <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/camera.dae"/>
+      </geometry>
+      <material name = "grey">
+        <color rgba = "0.5 0.5 0.5 1"/>
+      </material>
+      <origin xyz = "0 0.0 0.0 " rpy = " -1.5708 0 0"/>
+      <!-- <origin xyz = "0.017 0.0 -0.0115 " rpy = " 1.5708 1.5708 0"/> -->
+    </visual>
+    <collision>
+      <origin xyz = "0 0.0104 0.035 " rpy = " -1.5708 1.5708 0"/>
+      <geometry>
+        <box size="0.132 0.045 0.0175" />
+        <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/camera.dae"/> -->
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="camlenselink">
+  </link>
+
+  <link name="gripper_base">
+    <visual>
+      <geometry>
+        <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gripper_base.dae"/>
+      </geometry>
+      <material name = "grey">
+        <color rgba = "0.5 0.5 0.5 1"/>
+      </material>
+      <origin xyz = "-0.02 0.012 -0.018 " rpy = " 0 0 1.5708"/>
+    </visual>
+    <collision>
+      <origin xyz = "0 0 0.001 " rpy = " 0 0 1.5708"/>
+      <geometry>
+        <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gripper_base.dae"/> -->
+        <cylinder length="0.051" radius="0.049"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="gripper_left1">
+    <visual>
+      <geometry>
+       <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gripper_left1.dae"/>
+      </geometry>
+      <material name = "grey">
+        <color rgba = "0.5 0.5 0.5 1"/>
+      </material>
+      <origin xyz = "0.036 -0.05 0.0 " rpy = " 0 0 1.5708"/>
+    </visual>
+    <collision>
+      <!-- <origin xyz = "0.036 -0.05 0.0 " rpy = " 0 0 0"/> -->
+      <origin xyz = "0.0 0.0 0.0 " rpy = " 0 0 0"/>
+      <geometry>
+       <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gripper_left1.dae"/> -->
+       <box size="0.03 0.1 0.015"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="gripper_left2">
+    <visual>
+      <geometry>
+       <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gripper_left2.dae"/>
+      </geometry>
+      <material name = "grey">
+        <color rgba = "0.5 0.5 0.5 1"/>
+      </material>
+      <origin xyz = "0.03 0.023 -0.018 " rpy = " 0 0 1.5708"/>
+    </visual>
+    <collision>
+      <geometry>
+       <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gripper_left2.dae"/> -->
+       <box size="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz = "0.0 0.0 0.0 " rpy = " 0 0 0"/>
+    </collision>
+  </link>
+
+  <link name="gripper_left3">
+    <visual>
+      <geometry>
+       <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gripper_left3.dae"/>
+      </geometry>
+      <material name = "grey">
+        <color rgba = "0.5 0.5 0.5 1"/>
+      </material>
+      <origin xyz = "0.034 0.0 -0.012 " rpy = " 0 3.14159 -1.5708"/>
+    </visual>
+    <collision>
+      <geometry>
+       <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gripper_left3.dae"/> -->
+       <box size="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz = "0.0 0.0 0.0 " rpy = " 0 0 0"/>
+    </collision>
+  </link>
+
+  <link name="gripper_right1">
+    <visual>
+      <geometry>
+       <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gripper_right1.dae"/>
+      </geometry>
+      <material name = "grey">
+        <color rgba = "0.5 0.5 0.5 1"/>
+      </material>
+      <origin xyz = "-0.072 -0.05 0.0 " rpy = " 0 0 1.5708"/>
+    </visual>
+    <collision>
+      <geometry>
+       <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gripper_right1.dae"/> -->
+       <box size="0.03 0.1 0.015"/>
+      </geometry>
+      <!-- <origin xyz = "-0.072 -0.05 0.0 " rpy = " 0 0 0"/> -->
+      <origin xyz = "0.0 0.0 0.0 " rpy = " 0 0 0"/>
+    </collision>
+  </link>
+
+  <link name="gripper_right2">
+    <visual>
+      <geometry>
+       <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gripper_right2.dae"/>
+      </geometry>
+      <material name = "grey">
+        <color rgba = "0.5 0.5 0.5 1"/>
+      </material>
+      <origin xyz = "-0.066 0.023 -0.018 " rpy = " 0 0 1.5708"/>
+    </visual>
+    <collision>
+      <geometry>
+       <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gripper_right2.dae"/> -->
+       <box size="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz = "0.0 0.0 0.0 " rpy = " 0 0 0"/>
+    </collision>
+  </link>
+
+  <link name="gripper_right3">
+    <visual>
+      <geometry>
+       <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gripper_right3.dae"/>
+      </geometry>
+      <material name = "grey">
+        <color rgba = "0.5 0.5 0.5 1"/>
+      </material>
+      <origin xyz = "0 0.0 -0.012 " rpy = " 0 3.14159 -1.5708"/>
+    </visual>
+    <collision>
+      <geometry>
+       <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gripper_right3.dae"/> -->
+       <box size="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz = "0.0 0.0 0.0 " rpy = " 0 0 0"/>
+    </collision>
+  </link>
+  
+  <link name="gripper_right_hand">
+    <visual>
+      <geometry>
+       <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/grightv1.dae"/>
+      </geometry>
+      <material name = "grey">
+        <color rgba = "0.5 0.5 0.5 1"/>
+      </material>
+      <origin xyz = "-0.072 -0.05 -0.0005 " rpy = " 0 0 1.5708"/>
+    </visual>
+    <collision>
+      <geometry>
+       <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/grightv1.dae"/> -->
+       <box size="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz = "0.0 0.0 0.0 " rpy = " 0 0 0"/>
+    </collision>
+  </link>
+
+  <link name="gripper_left_hand">
+    <visual>
+      <geometry>
+       <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gleftv1.dae"/>
+      </geometry>
+      <material name = "grey">
+        <color rgba = "0.5 0.5 0.5 1"/>
+      </material>
+      <origin xyz = "0.0725 -0.05 -0.0005 " rpy = " 0 0 1.5708"/>
+    </visual>
+    <collision>
+      <geometry>
+       <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/gleftv1.dae"/> -->
+       <box size="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz = "0.0 0.0 0.0 " rpy = " 0 0 0"/>
+    </collision>
+  </link>
+
+  <link name="end_effector_link">
+    <origin xyz = "0 0 0 " rpy = " 0 0 0"/>
+  </link>
+<!-- 
+  <link name="table_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/tablev3.dae"/>
+      </geometry>
+      <origin xyz = "0 0 -0.19 " rpy = " 0 0 -1.5708"/>
+    </visual>
+    <collision>
+      <origin xyz = "0 0 0.135 " rpy = " 0 0 -1.5708"/>
+      <geometry>
+        <box size="0.7 0.4 0.05"/>
+      </geometry>
+    </collision>
+    <collision>
+        <origin xyz="-0.235 -0.55 0.135" rpy="0 0 1.5708"/>
+        <geometry>
+            <box size="0.4 0.7 0.05"/>
+        </geometry>
+    </collision>
+  </link>
+
+  <joint name="table_to_base" type="fixed">
+    <parent link="base"/>
+    <child link="table_link"/>
+    <origin xyz="-0.485 -0.05 -0.05" rpy="0 0 3.14159"/>
+  </joint> -->
+
+  <!-- <link name="hotcup_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/hotcup.dae"/>
+      </geometry>
+      <origin xyz = "0 0 -0.075 " rpy = " 0 0 0"/>
+    </visual>
+    <collision>
+      <origin xyz = "0 0 -0.018 " rpy = " 0 0 0"/>
+      <geometry>
+        <cylinder length="0.115" radius="0.04"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="icecup_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/icecup.dae"/>
+      </geometry>
+      <origin xyz = "0 0 -0.07 " rpy = " 0 0 0"/>
+    </visual>
+    <collision>
+      <origin xyz = "0 0 -0.017 " rpy = " 0 0 0"/>
+      <geometry>
+        <cylinder length="0.107" radius="0.04"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="shotcup_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/shotcup.dae"/>
+      </geometry>
+      <origin xyz = "0 0 -0.037 " rpy = " 0 0 3.14159"/>
+    </visual>
+    <collision>
+      <origin xyz = "0 0 -0.005 " rpy = " 0 0 0"/>
+      <geometry>
+        <cylinder length="0.065" radius="0.04"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="hotcup_to_table" type="fixed">
+    <parent link="table_link"/>
+    <child link="hotcup_link"/>
+    <origin xyz="-0.425 -0.55 0.26" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="icecup_to_table" type="fixed">
+    <parent link="table_link"/>
+    <child link="icecup_link"/>
+    <origin xyz="-0.3 -0.55 0.255" rpy="0 0 3.14159"/>
+  </joint>
+
+  <joint name="shotcup_to_table" type="fixed">
+    <parent link="table_link"/>
+    <child link="shotcup_link"/>
+    <origin xyz="-0.2 -0.4 0.28" rpy="0 0 0"/>
+  </joint> -->
+
+  <!-- <link name="icedispencer_link">
+    <origin xyz = "0 0 0 " rpy = " 0 0 0"/>
+  </link>
+
+  <joint name="icedispencer_joint" type="fixed">
+    <parent link="table_link"/>
+    <child link="icedispencer_link"/>
+    <origin xyz="-0.1 -0.2625 0.51" rpy="0 0 0"/>
+  </joint>
+
+  <link name="hotdispencer_link">
+    <origin xyz = "0 0 0 " rpy = " 0 0 0"/>
+  </link>
+
+  <joint name="hotdispencer_joint" type="fixed">
+    <parent link="table_link"/>
+    <child link="hotdispencer_link"/>
+    <origin xyz="-0.1 -0.1525 0.51" rpy="0 0 0"/>
+  </joint>
+
+  <link name="hotplace_link">
+    <origin xyz = "0 0 0 " rpy = " 0 0 0"/>
+  </link>
+
+  <joint name="hotplace_joint" type="fixed">
+    <parent link="table_link"/>
+    <child link="hotplace_link"/>
+    <origin xyz="-0.1 0.0 0.26" rpy="0 0 0"/>
+  </joint>
+
+  <link name="iceplace_link">
+    <origin xyz = "0 0 0 " rpy = " 0 0 0"/>
+  </link>
+
+  <joint name="iceplace_joint" type="fixed">
+    <parent link="table_link"/>
+    <child link="iceplace_link"/>
+    <origin xyz="-0.1 0.13 0.26" rpy="0 0 0"/>
+  </joint>
+
+  <link name="cupplace_link">
+    <origin xyz = "0 0 0 " rpy = " 0 0 0"/>
+  </link>
+
+  <joint name="cupplace_joint" type="fixed">
+    <parent link="table_link"/>
+    <child link="cupplace_link"/>
+    <origin xyz="-0.1 -0.2 0.26" rpy="0 0 3.14159"/>
+  </joint> -->
+
+  <link name="wall_link">
+    <visual>
+      <geometry>
+        <box size="0.05 1.2 0.8"/>
+      </geometry>
+      <material name = "grey">
+        <color rgba = "0.5 0.5 0.5 1"/>
+      </material>
+      <origin xyz = "0.4 0.1 0.2 " rpy = " 0 0 0"/>
+    </visual>
+    <collision>
+      <origin xyz = "0.4 0.1 0.2 " rpy = " 0 0 0"/>
+      <geometry>
+        <box size="0.2 0.5 1.0"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="wall_joint" type="fixed">
+    <parent link="base"/>
+    <child link="wall_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0 "/>
+  </joint>
+
+
+
+
+  <joint name="joint2_to_joint1" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort = "1000.0" lower = "-2.96" upper = "2.96" velocity = "0"/>
+    <parent link="base"/>
+    <child link="link1"/>
+    <origin xyz= "0 0 0.173" rpy = "0 0 0"/>
+  </joint>
+
+
+  <joint name="joint3_to_joint2" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort = "1000.0" lower = "-2.79" upper = "2.79" velocity = "0"/>
+    <parent link="link1"/>
+    <child link="link2"/>
+    <origin xyz= "0 -0.086 0" rpy = "0 -1.57080  1.57080"/>
+  </joint>
+
+
+  <joint name="joint4_to_joint3" type="revolute">
+    <axis xyz=" 0 0 1"/>
+    <limit effort = "1000.0" lower = "-2.79" upper = "2.79" velocity = "0"/>
+    <parent link="link2"/>
+    <child link="link3"/>
+    <origin xyz= "0.13635 0 -0.086   " rpy = "0 0 0"/>
+  </joint>
+
+  <joint name="joint5_to_joint4" type="revolute">
+    <axis xyz=" 0 0 1"/>
+    <limit effort = "1000.0" lower = "-2.79" upper = "2.79" velocity = "0"/>
+    <parent link="link3"/>
+    <child link="link4"/>
+    <origin xyz= "0.1195 0.0  0.082" rpy = "0 0 1.57080"/>
+  </joint>
+
+  <joint name="joint6_to_joint5" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort = "1000.0" lower = "-2.96" upper = "2.96" velocity = "0"/>
+    <parent link="link4"/>
+    <child link="link5"/>
+    <origin xyz= "0 -0.09415 0" rpy = "1.57080 0 0"/>
+  </joint>
+
+  <joint name="joint6output_to_joint6" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort = "1000.0" lower = "-3.05" upper = "3.05" velocity = "0"/>
+    <parent link="link5"/>
+    <child link="link6"/>
+    <origin xyz= "0 0.055 0" rpy = "-1.57080 0 0 "/>
+  </joint>
+
+  <joint name="joint6_to_camlink" type="fixed">
+    <!-- <axis xyz="0 0 1"/>
+    <limit effort = "1000.0" lower = "-3.05" upper = "3.05" velocity = "0"/> -->
+    <parent link="link6"/>
+    <child link="camlink"/>
+    <!-- <origin xyz= "0 0.0 0.034" rpy = "1.5708 0 0"/> -->
+    <origin xyz= "0 0 0" rpy = "1.5708 0 0"/>
+  </joint>
+
+  <joint name="cam_to_lense" type="fixed">
+    <parent link="camlink"/>
+    <child link="camlenselink"/>
+    <origin xyz= "0 0.017 0.08" rpy = "-1.5708 0 0"/>
+  </joint>
+
+  <joint name="camlink_to_gripper_base" type="fixed">
+    <!-- <axis xyz="0 0 1"/>
+    <limit effort = "1000.0" lower = "-3.05" upper = "3.05" velocity = "0"/> -->
+    <parent link="camlink"/>
+    <child link="gripper_base"/>
+    <!-- <origin xyz= "0 0.0 0.034" rpy = "1.5708 0 0"/> -->
+    <!-- <origin xyz= "0 0.05 -0.07" rpy = "0 3.1416 0"/> -->
+    <origin xyz= "0 0.054 -0.006" rpy = "0 3.1416 0"/>
+  </joint>
+
+    <joint name="gripper_controller" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort = "1000.0" lower = "-0.7" upper = "0.3" velocity = "0"/>
+    <parent link="gripper_base"/>
+    <child link="gripper_left3"/>
+    <origin xyz= "-0.018 0.016 0.01" rpy = "0 0 0"/> 
+  </joint>
+
+  <joint name="gripper_base_to_gripper_left2" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort = "1000.0" lower = "-0.8" upper = "0.5" velocity = "0"/>
+    <parent link="gripper_base"/>
+    <child link="gripper_left2"/>
+    <origin xyz= "-0.05 -0.01 0.01" rpy = "0 0 0"/> 
+    <mimic joint="gripper_controller" multiplier="1.0" offset="0" />
+  </joint>
+
+  <joint name="gripper_left3_to_gripper_left1" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort = "1000.0" lower = "-0.5" upper = "0.5" velocity = "0"/>
+    <parent link="gripper_left3"/>
+    <child link="gripper_left1"/>
+    <origin xyz= "-0.0356 0.051 -0.018" rpy = "0 0 0"/> 
+    <mimic joint="gripper_controller" multiplier="-1.0" offset="0" />
+  </joint>
+
+  <joint name="gripper_base_to_gripper_right3" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort = "1000.0" lower = "-0.3" upper = "0.7" velocity = "0"/>
+    <parent link="gripper_base"/>
+    <child link="gripper_right3"/>
+    <origin xyz= "0.018 0.016 0.01" rpy = "0 0 0"/> 
+    <mimic joint="gripper_controller" multiplier="-1.0" offset="0" />
+  </joint>
+
+  <joint name="gripper_base_to_gripper_right2" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort = "1000.0" lower = "-0.5" upper = "0.8" velocity = "0"/>
+    <parent link="gripper_base"/>
+    <child link="gripper_right2"/>
+    <!-- <origin xyz= "0.046 -0.01 0.01" rpy = "0 0 0"/>  -->
+    <origin xyz= "0.05 -0.01 0.01" rpy = "0 0 0"/> 
+    <mimic joint="gripper_controller" multiplier="-1.0" offset="0" />
+  </joint>
+
+  <joint name="gripper_right3_to_gripper_right1" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort = "1000.0" lower = "-0.5" upper = "0.5" velocity = "0"/>
+    <parent link="gripper_right3"/>
+    <child link="gripper_right1"/>
+    <!-- <origin xyz= "0.033 0.051 -0.018" rpy = "0 0 0"/>  -->
+    <origin xyz= "0.0356 0.051 -0.018" rpy = "0 0 0"/> 
+    <mimic joint="gripper_controller" multiplier="1.0" offset="0" />
+  </joint>
+  
+  <joint name="right_hand_to_right1" type="fixed">
+    <axis xyz="0 0 1"/>
+    <limit effort = "1000.0" lower = "-0.5" upper = "0.5" velocity = "0"/>
+    <parent link="gripper_right1"/>
+    <child link="gripper_right_hand"/>
+    <!-- <origin xyz= "0.033 0.051 -0.018" rpy = "0 0 0"/>  -->
+    <origin xyz= "0.0 0.0 0.0" rpy = "0 0 0"/> 
+    <!-- <mimic joint="gripper_controller" multiplier="1.0" offset="0" /> -->
+  </joint>
+
+  <joint name="left_hand_to_left1" type="fixed">
+    <axis xyz="0 0 1"/>
+    <limit effort = "1000.0" lower = "-0.5" upper = "0.5" velocity = "0"/>
+    <parent link="gripper_left1"/>
+    <child link="gripper_left_hand"/>
+    <!-- <origin xyz= "0.033 0.051 -0.018" rpy = "0 0 0"/>  -->
+    <origin xyz= "0.0 0.0 0.0" rpy = "0 0 0"/> 
+    <!-- <mimic joint="gripper_controller" multiplier="-1.0" offset="0" /> -->
+  </joint>
+
+  <joint name="end_effector_joint" type="fixed">
+    <parent link="link6"/>
+    <child link="end_effector_link"/>
+    <!-- <origin xyz= "0 0 0.212" rpy = "0 0 0 "/> -->
+    <origin xyz= "0 0 0.154" rpy = "0 0 0 "/>
+  </joint>
+
+</robot>
