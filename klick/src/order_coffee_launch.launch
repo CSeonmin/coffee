@@ -1,0 +1,13 @@
+<launch>
+    <!-- Launch the mycobot320_gripper_moveit.launch file -->
+    <include file="/home/csm/catkin_ws/src/mycobot_ros/mycobot_320/new_mycobot_320_gripper_moveit/launch/mycobot320_gripper_moveit.launch"/>
+
+    <!-- Run the slider.py node -->
+    <node name="control_slider" pkg="klick" type="slider.py" output="screen"/>
+
+    <!-- Run the order_coffee.py node -->
+    <node name="order_coffee" pkg="klick" type="order_coffee.py" output="screen"/>
+
+    <!-- Run the order_pose_server.py node -->
+    <node name="order_pose_server" pkg="klick" type="order_pose_server.py" output="screen"/>
+</launch>

@@ -16,13 +16,7 @@ def move_to_jointpose():
     scene = moveit_commander.PlanningSceneInterface()
     
     arm_group = moveit_commander.MoveGroupCommander("arm_group")
-    angles_in_degrees =    [-104.11810708169162, 44.63338479059295, 67.01128181217638, -109.47459733033766, -14.80005673328852, -8.484014421577813]
-
-
-
-
-
-
+    angles_in_degrees = [-130.69028960428412, 129.8265039520659, -79.09464411518309, -51.73039505214806, -37.3508166246381, -8.084426685044441]
     radian_pose = degrees_to_radians(angles_in_degrees)
     print("Target joint pose in radians:", radian_pose)
 

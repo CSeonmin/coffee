@@ -4,18 +4,29 @@ import rospy
 import moveit_commander
 import time
 import math
+from std_msgs.msg import Int32
 from klick.srv import GripperControl, GripperControlRequest, GripperControlResponse
+import numpy as np
 
 gripper_service = None
+gripper_pub = rospy.Publisher("state_check", Int32, queue_size=10)
 
 def degrees_to_radians(degrees):
     return [angle * (math.pi / 180.0) for angle in degrees]
 
+def calculate_joint_movement(plan):
+    joint_movements = np.zeros(len(plan.joint_trajectory.joint_names))
+    for i in range(1, len(plan.joint_trajectory.points)):
+        for j in range(len(plan.joint_trajectory.joint_names)):
+            joint_movements[j] += abs(plan.joint_trajectory.points[i].positions[j] - plan.joint_trajectory.points[i-1].positions[j])
+    return sum(joint_movements)
+
 def gripper_move(val):
     global gripper_service
+    gripper_pub.publish(0)
     try:
         print("Waiting for gripper_service...")
-        rospy.wait_for_service('gripper_service', timeout=10)  # 10초 타임아웃 설정
+        rospy.wait_for_service('gripper_service', timeout=10)
         print("gripper_service available.")
         gripper_service = rospy.ServiceProxy('gripper_service', GripperControl)
         request = GripperControlRequest(val=val)
@@ -34,15 +45,31 @@ def move_to_jointpose(joint_goal):
     robot = moveit_commander.RobotCommander()
     arm_group = moveit_commander.MoveGroupCommander("arm_group")
     arm_group.set_joint_value_target(joint_goal)
-    plan = arm_group.go(wait=True)
-    arm_group.stop()
-    arm_group.clear_pose_targets()
 
-    if plan:
-        print("Movement successful!")
+    best_plan = None
+    min_joint_movement = float('inf')
+
+    for i in range(10):
+        plan = arm_group.plan()
+        
+        if isinstance(plan, tuple):
+            plan = plan[1]
+
+        if plan and hasattr(plan, 'joint_trajectory') and plan.joint_trajectory.points:
+            joint_movement = calculate_joint_movement(plan)
+            if joint_movement < min_joint_movement:
+                min_joint_movement = joint_movement
+                best_plan = plan
+
+    if best_plan:
+        arm_group.execute(best_plan, wait=True)
+        arm_group.stop()
+        arm_group.clear_pose_targets()
+        print("Movement successful with minimum joint movement!")
+        return True
     else:
         print("Movement failed!")
-    return plan
+        return False
 
 def main():
     rospy.init_node('move_joint_pose_node', anonymous=True)
@@ -51,15 +78,16 @@ def main():
     print("Attempting to open gripper")
     gripper_move(95)
     print("Gripper opened")
-    time.sleep(1)
+    # time.sleep(1)
 
     # 첫 번째 자세로 이동
     joint_pose_1 = [-130.69028960428412, 129.8265039520659, -79.09464411518309, -51.73039505214806, -37.3508166246381, -8.084426685044441]
     joint_pose_1_rad = degrees_to_radians(joint_pose_1)
     print("Moving to joint pose 1:", joint_pose_1_rad)
-    
+
     if move_to_jointpose(joint_pose_1_rad):
         print("Moved to joint pose 1")
+        time.sleep(2)
 
     # 두 번째 자세로 이동
     joint_pose_2 = [-122.98358718698353, 114.98233181631265, -58.938883212922256, -56.89225238501183, -45.0578082828973, -8.281959675778296]
@@ -68,10 +96,12 @@ def main():
     
     if move_to_jointpose(joint_pose_2_rad):
         print("Moved to joint pose 2")
+        time.sleep(2)
+
 
     # 그리퍼 닫기
     print("Attempting to close gripper")
-    gripper_move(80)
+    gripper_move(50)
     print("Gripper closed")
     time.sleep(1)
 

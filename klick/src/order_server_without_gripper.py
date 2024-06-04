@@ -10,8 +10,8 @@ import numpy as np
 import time, math
 from queue import Queue, Empty
 
-gripper_service = None
-gripper_pub = rospy.Publisher("state_check", Int32, queue_size=10)
+# gripper_service = None
+# gripper_pub = rospy.Publisher("state_check", Int32, queue_size=10)
 takeout_queue = Queue()
 agv_move_pub = rospy.Publisher('agv_move_command', Int32, queue_size=10)
 
@@ -84,27 +84,32 @@ def calculate_joint_movement(plan):
             joint_movements[j] += abs(plan.joint_trajectory.points[i].positions[j] - plan.joint_trajectory.points[i-1].positions[j])
     return sum(joint_movements)
 
-def gripper_move(val):
-    global gripper_service
-    gripper_pub.publish(0)
-    try:
-        print("Waiting for gripper_service...")
-        rospy.wait_for_service('gripper_service', timeout=10)
-        print("gripper_service available.")
-        gripper_service = rospy.ServiceProxy('gripper_service', GripperControl)
-        request = GripperControlRequest(val=val)
-        response = gripper_service(request)
-        if response.success:
-            print(f"Gripper moved to {val}")
-        else:
-            print("Gripper service call failed")
-    except rospy.ServiceException as e:
-        print(f"Gripper service call failed: {e}")
-    except rospy.ROSException as e:
-        print(f"Service call timeout: {e}")
+# def gripper_move(val):
+#     global gripper_service
+#     gripper_pub.publish(0)
+#     try:
+#         print("Waiting for gripper_service...")
+#         rospy.wait_for_service('gripper_service', timeout=10)
+#         print("gripper_service available.")
+#         gripper_service = rospy.ServiceProxy('gripper_service', GripperControl)
+#         request = GripperControlRequest(val=val)
+#         response = gripper_service(request)
+#         if response.success:
+#             print(f"Gripper moved to {val}")
+#         else:
+#             print("Gripper service call failed")
+#     except rospy.ServiceException as e:
+#         print(f"Gripper service call failed: {e}")
+#     except rospy.ROSException as e:
+#         print(f"Service call timeout: {e}")
 
 def move_to_pose(pose_goal):
     arm_group.set_pose_target(pose_goal)
+    
+    # Optional: Set different planner
+    arm_group.set_planner_id("RRTstar")
+    arm_group.set_num_planning_attempts(10)
+    arm_group.set_planning_time(10)
 
     best_plan = None
     min_joint_movement = float('inf')
@@ -153,6 +158,7 @@ def move_to_pose(pose_goal):
 
     return response
 
+
 # def parse_order_details(order_details):
 #     details = order_details.split(", ")
 #     order_info = {}
@@ -169,7 +175,7 @@ def handle_cup_and_shot(order_number, drink_count, temperature, poses):
     print(f"주문번호: {order_number}, {drink_count}번째 잔, {temperature} 음료를 제조 중입니다.")
 
     print("Attempting to open gripper")
-    gripper_move(95)
+    # gripper_move(95)
     print("Gripper opened")
 
     # Move to cup (ice or hot)
@@ -185,7 +191,7 @@ def handle_cup_and_shot(order_number, drink_count, temperature, poses):
     if not response.success:
         return response
     
-    gripper_move(65)
+    # gripper_move(65)
 
     cup_lift_pose = Pose( 
         position=Point(x=cup_pose.position.x - 0.0136, y=cup_pose.position.y, z=cup_pose.position.z + 0.0668),
@@ -208,7 +214,7 @@ def handle_cup_and_shot(order_number, drink_count, temperature, poses):
     if not response.success:
         return response
 
-    gripper_move(90)
+    # gripper_move(90)
 
     cup_out_pose = Pose( 
         position=Point(x=cup_place_pose.position.x + 0.07, y=cup_place_pose.position.y, z=cup_place_pose.position.z - 0.04),
@@ -218,7 +224,7 @@ def handle_cup_and_shot(order_number, drink_count, temperature, poses):
     if not response.success:
         return response
     
-    gripper_move(65)
+    # gripper_move(65)
 
     # Move to shot cup
     response = move_to_pose(shot_cup_pose) # front of shot cup
@@ -233,7 +239,7 @@ def handle_cup_and_shot(order_number, drink_count, temperature, poses):
     if not response.success:
         return response
 
-    gripper_move(35)
+    # gripper_move(35)
 
     lift_shot_pose = Pose( 
         position=Point(x=shot_cup_pose.position.x -0.0447, y=shot_cup_pose.position.y, z=shot_cup_pose.position.z + 0.0867),
@@ -270,7 +276,7 @@ def handle_cup_and_shot(order_number, drink_count, temperature, poses):
     if not response.success:
         return response
     
-    gripper_move(65)
+    # gripper_move(65)
 
     response = move_to_pose(shot_cup_pose) # front of shot cup
     if not response.success:
@@ -290,7 +296,7 @@ def handle_syrup(order_number, drink_count, poses):
     print(f"주문번호: {order_number}, {drink_count}번째 잔에 시럽을 추가 중입니다.")
     syrup_pose = poses["syrup"]
 
-    gripper_move(50)
+    # gripper_move(50)
 
     response = move_to_pose(syrup_pose) # over the syrup bottle
     if not response.success:
@@ -326,7 +332,7 @@ def handle_water_or_milk(order_number, drink_count, menu, poses):
     if not response.success:
         return response
     
-    gripper_move(90)
+    # gripper_move(90)
 
     front_cup_pose = Pose( 
         position=Point(x=cup_place_pose.position.x + 0.07, y=cup_place_pose.position.y, z=cup_place_pose.position.z - 0.04),
@@ -344,7 +350,7 @@ def handle_water_or_milk(order_number, drink_count, menu, poses):
     if not response.success:
         return response
     
-    gripper_move(65)
+    # gripper_move(65)
     
     response = move_to_pose(cup_place_pose) # over cup place
     if not response.success:
@@ -363,7 +369,7 @@ def handle_water_or_milk(order_number, drink_count, menu, poses):
     if not response.success:
         return response
 
-    gripper_move(90)
+    # gripper_move(90)
 
     out_cup_pose = Pose( 
         position=Point(x=cup_type_place.position.x + 0.6417, y=cup_type_place.position.y, z=cup_type_place.position.z - 0.0355),
@@ -411,7 +417,7 @@ def handle_water_or_milk(order_number, drink_count, menu, poses):
     if not response.success:
         return response
 
-    gripper_move(65)
+    # gripper_move(65)
 
     response = move_to_pose(cup_type_place) # over the cup place (below the dispenser)
     if not response.success:
@@ -439,7 +445,7 @@ def handle_takeout_or_serving(order_number, takeout_serving, drink_count, poses)
         if not response.success:
             return response
         
-        gripper_move(90)
+        # gripper_move(90)
 
         out_takeout_pose = Pose( 
             position=Point(x=takeout_pose.position.x + 0.07, y=takeout_pose.position.y, z=takeout_pose.position.z - 0.0355),
@@ -472,7 +478,7 @@ def handle_takeout_or_serving(order_number, takeout_serving, drink_count, poses)
             if not response.success:
                 return response
             
-            gripper_move(90)
+            # gripper_move(90)
 
             out_serving_pose1 = Pose( 
                 position=Point(x=serving_first_pose.position.x + 0.07, y=serving_first_pose.position.y, z=serving_first_pose.position.z - 0.0355),
@@ -504,7 +510,7 @@ def handle_takeout_or_serving(order_number, takeout_serving, drink_count, poses)
             if not response.success:
                 return response
             
-            gripper_move(90)
+            # gripper_move(90)
 
             out_serving_pose2 = Pose( 
                 position=Point(x=serving_second_pose.position.x + 0.07, y=serving_second_pose.position.y, z=serving_second_pose.position.z - 0.0355),
@@ -619,6 +625,6 @@ if __name__ == "__main__":
     arm_group = MoveGroupCommander("arm_group")
 
     s1 = rospy.Service('order_pose', OrderPose, handle_order_pose)
-    s2 = rospy.Service('gripper_control', GripperControl, gripper_move)
+    # s2 = rospy.Service('gripper_control', GripperControl, gripper_move)
     print("Ready to receive order poses.")
     rospy.spin()

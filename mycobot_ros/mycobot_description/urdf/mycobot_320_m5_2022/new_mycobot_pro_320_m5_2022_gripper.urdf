@@ -14,7 +14,8 @@
     <collision>
       <origin xyz = "0 0 0.05 " rpy = " 0 0 1.5708"/>
       <geometry>
-        <cylinder length="0.096" radius="0.07"/>
+        <!-- <cylinder length="0.096" radius="0.07"/> -->
+        <cylinder length="0.096" radius="0.05"/>
         <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/base.dae"/> -->
       </geometry>
     </collision>
@@ -30,7 +31,8 @@
     <collision>
       <origin xyz = "0.0 0.0 -0.018 " rpy = " 0 0 1.5708"/>
       <geometry>
-        <cylinder length="0.114" radius="0.0382"/>
+        <!-- <cylinder length="0.114" radius="0.0382"/> -->
+        <cylinder length="0.114" radius="0.025"/>
         <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link1.dae"/> -->
       </geometry>
     </collision>
@@ -47,7 +49,8 @@
     <collision>
       <origin xyz = "0.067 0.0 -0.005 " rpy = " 0 1.5708 0"/>
       <geometry>
-        <cylinder length="0.203" radius="0.0382"/>
+        <!-- <cylinder length="0.203" radius="0.0382"/> -->
+        <cylinder length="0.203" radius="0.025"/>
         <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link2.dae"/> -->
       </geometry>
     </collision>
@@ -64,7 +67,8 @@
     <collision>
       <origin xyz = "0.058 0.0 -0.004" rpy = " 1.5708 1.5708 1.5708"/>
       <geometry>
-        <cylinder length="0.18" radius="0.032"/>
+        <!-- <cylinder length="0.18" radius="0.032"/> -->
+        <cylinder length="0.18" radius="0.025"/>
         <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link3.dae"/> -->
       </geometry>
     </collision>
@@ -82,7 +86,8 @@
     <collision>
       <origin xyz = "0.0 -0.007 0.0" rpy = " 1.5708 1.5708 0"/>
       <geometry>
-        <cylinder length="0.073" radius="0.029"/>
+        <!-- <cylinder length="0.073" radius="0.029"/> -->
+        <cylinder length="0.073" radius="0.02"/>
         <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link4.dae"/> -->
       </geometry>
     </collision>
@@ -99,7 +104,8 @@
     <collision>
       <origin xyz = "0.0 -0.003 -0.01 " rpy = " 0  0 -1.5708"/>
       <geometry>
-        <cylinder length="0.078" radius="0.046"/>
+        <!-- <cylinder length="0.078" radius="0.046"/> -->
+        <cylinder length="0.078" radius="0.025"/>
         <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link5.dae"/> -->
       </geometry>
     </collision>
@@ -118,7 +124,8 @@
     <collision>
       <origin xyz = "0.0 0.0 -0.0115 " rpy = " 1.5708 1.5708 0"/>
       <geometry>
-        <cylinder length="0.0225" radius="0.026"/>
+        <!-- <cylinder length="0.0225" radius="0.026"/> -->
+        <cylinder length="0.0225" radius="0.02"/>
         <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/link6.dae"/> -->
       </geometry>
     </collision>
@@ -139,7 +146,8 @@
     <collision>
       <origin xyz = "0 0.0104 0.035 " rpy = " -1.5708 1.5708 0"/>
       <geometry>
-        <box size="0.132 0.045 0.0175" />
+        <!-- <box size="0.132 0.045 0.0175" /> -->
+        <box size="0.05 0.045 0.01" />
         <!-- <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/camera.dae"/> -->
       </geometry>
     </collision>
@@ -324,11 +332,11 @@
   <link name="end_effector_link">
     <origin xyz = "0 0 0 " rpy = " 0 0 0"/>
   </link>
-<!-- 
-  <link name="table_link">
+
+  <!-- <link name="table_link">
     <visual>
       <geometry>
-        <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/tablev3.dae"/>
+        <mesh filename="package://mycobot_description/urdf/mycobot_320_m5_2022/tablev4.dae"/>
       </geometry>
       <origin xyz = "0 0 -0.19 " rpy = " 0 0 -1.5708"/>
     </visual>
@@ -465,7 +473,7 @@
     <origin xyz="-0.1 -0.2 0.26" rpy="0 0 3.14159"/>
   </joint> -->
 
-  <link name="wall_link">
+  <link name="wall_link1">
     <visual>
       <geometry>
         <box size="0.05 1.2 0.8"/>
@@ -478,18 +486,40 @@
     <collision>
       <origin xyz = "0.4 0.1 0.2 " rpy = " 0 0 0"/>
       <geometry>
-        <box size="0.2 0.5 1.0"/>
+        <box size="0.05 1.2 0.8"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="wall_joint" type="fixed">
+  <joint name="wall_joint1" type="fixed">
     <parent link="base"/>
-    <child link="wall_link"/>
+    <child link="wall_link1"/>
     <origin xyz="0 0 0" rpy="0 0 0 "/>
   </joint>
 
+  <link name="wall_link2">
+    <visual>
+      <geometry>
+        <box size="1.15 0.05 0.8"/>
+      </geometry>
+      <material name = "grey">
+        <color rgba = "0.5 0.5 0.5 1"/>
+      </material>
+      <origin xyz = "-0.2 0.73 0.17 " rpy = " 0 0 0"/>
+    </visual>
+    <collision>
+      <origin xyz = "-0.2 0.73 0.17 " rpy = " 0 0 0"/>
+      <geometry>
+        <box size="1.15 0.05 0.8"/>
+      </geometry>
+    </collision>
+  </link>
 
+  <joint name="wall_joint2" type="fixed">
+    <parent link="base"/>
+    <child link="wall_link2"/>
+    <origin xyz="0 0 0" rpy="0 0 0 "/>
+  </joint>
 
 
   <joint name="joint2_to_joint1" type="revolute">

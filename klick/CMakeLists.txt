@@ -15,6 +15,7 @@ add_service_files(
   FILES
   OrderPose.srv
   GripperControl.srv
+  CheckAgv.srv
 )
 
 generate_messages(
@@ -42,6 +43,8 @@ catkin_install_python(PROGRAMS
   src/order_pose_server.py
   src/order_pose_client.py
   src/move_pose_gripper.py
+  src/order_coffee.py
   src/slider.py
+  src/order_server_without_gripper.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
