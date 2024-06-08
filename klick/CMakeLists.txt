@@ -46,5 +46,6 @@ catkin_install_python(PROGRAMS
   src/order_coffee.py
   src/slider.py
   src/order_server_without_gripper.py
+  src/visual_servoing.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

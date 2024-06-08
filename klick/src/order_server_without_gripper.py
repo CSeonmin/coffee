@@ -106,8 +106,10 @@ def calculate_joint_movement(plan):
 def move_to_pose(pose_goal):
     arm_group.set_pose_target(pose_goal)
     
+    print(f"Target pose: {pose_goal}")
+    
     # Optional: Set different planner
-    arm_group.set_planner_id("RRTstar")
+    arm_group.set_planner_id("RRTConnect")
     arm_group.set_num_planning_attempts(10)
     arm_group.set_planning_time(10)
 
