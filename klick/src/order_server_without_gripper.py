@@ -4,7 +4,7 @@ import rospy
 import moveit_commander
 from moveit_commander import MoveGroupCommander
 from geometry_msgs.msg import Pose, Point, Quaternion
-from std_msgs.msg import Int32
+from std_msgs.msg import Int32, String
 from klick.srv import OrderPose, OrderPoseResponse, CheckAgv, CheckAgvRequest
 import numpy as np
 import time, math
@@ -12,6 +12,7 @@ from queue import Queue, Empty
 
 takeout_queue = Queue()
 agv_move_pub = rospy.Publisher('agv_move_command', Int32, queue_size=10)
+order_complete_pub = rospy.Publisher("order_complete", String, queue_size=10)
 
 joints = {
     "americano_cup": [-82, 125, -71, -62, -95, -1],
@@ -306,6 +307,10 @@ def handle_order_pose(request):
             takeout_queue.get_nowait()
         except Empty:
             pass
+
+    order_complete_msg = f"주문번호 {order_number} 완료"
+    order_complete_pub.publish(order_complete_msg)
+    print(order_complete_msg)
 
     return OrderPoseResponse(success=True, execution_time=total_execution_time)
 
