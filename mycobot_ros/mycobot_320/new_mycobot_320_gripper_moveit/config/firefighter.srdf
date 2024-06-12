@@ -124,7 +124,7 @@
     <disable_collisions link1="gripper_left_hand" link2="gripper_right1" reason="Never"/>
     <disable_collisions link1="gripper_left_hand" link2="gripper_right2" reason="Never"/>
     <disable_collisions link1="gripper_left_hand" link2="gripper_right3" reason="Never"/>
-    <!-- <disable_collisions link1="table_link" link2="link6" reason="Never"/>
+    <disable_collisions link1="table_link" link2="link6" reason="Never"/>
     <disable_collisions link1="table_link" link2="camlink" reason="Never"/>
     <disable_collisions link1="table_link" link2="gripper_base" reason="Never"/>
     <disable_collisions link1="table_link" link2="gripper_left1" reason="Never"/>
@@ -132,7 +132,7 @@
     <disable_collisions link1="table_link" link2="gripper_left3" reason="Never"/>
     <disable_collisions link1="table_link" link2="gripper_right1" reason="Never"/>
     <disable_collisions link1="table_link" link2="gripper_right2" reason="Never"/>
-    <disable_collisions link1="table_link" link2="gripper_right3" reason="Never"/> -->
+    <disable_collisions link1="table_link" link2="gripper_right3" reason="Never"/>
     <!-- <disable_collisions link1="table_link" link2="hotcup_link" reason="Never"/>
     <disable_collisions link1="table_link" link2="icecup_link" reason="Never"/>
     <disable_collisions link1="table_link" link2="shotcup_link" reason="Never"/>
